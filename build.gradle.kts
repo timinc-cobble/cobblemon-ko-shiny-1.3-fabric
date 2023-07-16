@@ -5,7 +5,7 @@ plugins {
     kotlin("jvm") version ("1.7.10")
 }
 
-group = "us.timinc.mc.cobblemon.kostreakshiny"
+group = "us.timinc.mc.cobblemon.koshiny"
 version = "1.0.0"
 
 architectury {

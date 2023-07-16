@@ -1,0 +1,6 @@
+{
+  "koshiny.nostreak": "No current KO streak.",
+  "koshiny.streak": "Current KO streak: %d %d.",
+  "koshiny.error.invalidPokemonIdentifier": "There was an error with your KO Streak data. Run /resetkos to reset it.",
+  "koshiny.successfulReset": "KO Streak successfully reset."
+}

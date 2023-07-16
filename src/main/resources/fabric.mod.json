@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "cobblemon_kostreakshiny",
+  "id": "cobblemon_koshiny",
   "version": "0.0.0",
-  "name": "Cobblemon KO Streak Shiny",
-  "description": "Increase your shiny odds with KO streaks",
+  "name": "Cobblemon KO Shiny",
+  "description": "Increase your shiny odds with KOs",
   "authors": [
     "timinc"
   ],
@@ -13,7 +13,7 @@
     "main": [
       {
         "adapter": "kotlin",
-        "value": "us.timinc.mc.cobblemon.kostreakshiny.KoStreakShiny"
+        "value": "us.timinc.mc.cobblemon.koshiny.KoShiny"
       }
     ]
   },

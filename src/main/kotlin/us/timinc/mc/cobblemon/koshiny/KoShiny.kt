@@ -1,4 +1,4 @@
-package us.timinc.mc.cobblemon.kostreakshiny
+package us.timinc.mc.cobblemon.koshiny
 
 import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.api.events.CobblemonEvents
@@ -23,11 +23,11 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.ai.targeting.TargetingConditions
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.AABB
-import us.timinc.mc.cobblemon.kostreakshiny.store.WildDefeatsData
+import us.timinc.mc.cobblemon.koshiny.store.WildDefeatsData
 import java.util.UUID
 import kotlin.random.Random
 
-object KoStreakShiny : ModInitializer {
+object KoShiny : ModInitializer {
 
     override fun onInitialize() {
         PlayerDataExtensionRegistry.register(WildDefeatsData.name, WildDefeatsData::class.java)

@@ -1,4 +1,4 @@
-package us.timinc.mc.cobblemon.kostreakshiny.store
+package us.timinc.mc.cobblemon.koshiny.store
 
 import com.cobblemon.mod.common.api.storage.player.PlayerDataExtension
 import com.google.gson.JsonObject
