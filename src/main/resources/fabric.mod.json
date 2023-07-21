@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "id": "cobblemon_koshiny",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "name": "Cobblemon KO Shiny",
   "description": "Increase your shiny odds with KOs",
   "authors": [
-    "timinc"
+    "Timothy Metcalfe aka TimInc"
   ],
-  "license": "MPL-2.0",
+  "license": "MIT",
   "environment": "*",
   "entrypoints": {
     "main": [
