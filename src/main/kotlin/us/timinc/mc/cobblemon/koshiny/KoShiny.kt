@@ -25,14 +25,14 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.ai.targeting.TargetingConditions
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.AABB
-import us.timinc.mc.cobblemon.koshiny.store.WildDefeatsData
+import us.timinc.mc.cobblemon.koshiny.store.WildKos
 import java.util.UUID
 import kotlin.random.Random
 
 object KoShiny : ModInitializer {
 
     override fun onInitialize() {
-        PlayerDataExtensionRegistry.register(WildDefeatsData.name, WildDefeatsData::class.java)
+        PlayerDataExtensionRegistry.register(WildKos.name, WildKos::class.java)
 
         CobblemonEvents.BATTLE_VICTORY.subscribe { battleVictoryEvent ->
             if (!battleVictoryEvent.battle.isPvW) return@subscribe
@@ -61,9 +61,9 @@ object KoShiny : ModInitializer {
         }
     }
 
-    private fun getPlayerKoStreak(player: Player): WildDefeatsData {
+    private fun getPlayerKoStreak(player: Player): WildKos {
         val data = Cobblemon.playerData.get(player)
-        return data.extraData.getOrPut(WildDefeatsData.name) { WildDefeatsData() } as WildDefeatsData
+        return data.extraData.getOrPut(WildKos.name) { WildKos() } as WildKos
     }
 
     private fun checkAndApplyBonusShinyChance(entity: PokemonEntity, world: ServerLevel) {
@@ -96,11 +96,11 @@ object KoShiny : ModInitializer {
             .flatMap { it.getPlayerUUIDs().mapNotNull(UUID::getPlayer) }
             .forEach { player ->
                 val data = Cobblemon.playerData.get(player)
-                val wildDefeats: WildDefeatsData =
-                    data.extraData.getOrPut(WildDefeatsData.name) { WildDefeatsData() } as WildDefeatsData
+                val wildKos: WildKos =
+                    data.extraData.getOrPut(WildKos.name) { WildKos() } as WildKos
                 wildPokemons.forEach { wildPokemon ->
                     val resourceIdentifier = wildPokemon.species.resourceIdentifier.toString()
-                    wildDefeats.addDefeat(resourceIdentifier)
+                    wildKos.addDefeat(resourceIdentifier)
                 }
                 Cobblemon.playerData.saveSingle(data)
             }
@@ -111,7 +111,7 @@ object KoShiny : ModInitializer {
         val player = context.source.playerOrException
         val data = Cobblemon.playerData.get(player)
 
-        val wildDefeats = data.extraData.getOrPut(WildDefeatsData.name) { WildDefeatsData() } as WildDefeatsData
+        val wildDefeats = data.extraData.getOrPut(WildKos.name) { WildKos() } as WildKos
         val currentCount = wildDefeats.getDefeats(queriedPokemonResourceIdentifier.toString())
 
         if (currentCount == 0) {
@@ -143,7 +143,7 @@ object KoShiny : ModInitializer {
         val player = context.source.playerOrException
         val data = Cobblemon.playerData.get(player)
 
-        val wildDefeats = data.extraData.getOrPut(WildDefeatsData.name) { WildDefeatsData() } as WildDefeatsData
+        val wildDefeats = data.extraData.getOrPut(WildKos.name) { WildKos() } as WildKos
         wildDefeats.resetDefeats()
         Cobblemon.playerData.saveSingle(data)
 

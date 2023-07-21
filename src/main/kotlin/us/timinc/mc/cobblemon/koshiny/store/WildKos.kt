@@ -3,30 +3,30 @@ package us.timinc.mc.cobblemon.koshiny.store
 import com.cobblemon.mod.common.api.storage.player.PlayerDataExtension
 import com.google.gson.JsonObject
 
-class WildDefeatsData : PlayerDataExtension {
+class WildKos : PlayerDataExtension {
     companion object {
         const val name = "wildKos"
     }
 
-    val wildDefeatsData = mutableMapOf<String, Int>()
+    val wildKos = mutableMapOf<String, Int>()
 
     fun resetDefeats() {
-        wildDefeatsData.clear()
+        wildKos.clear()
     }
 
     fun addDefeat(defeatedPokemonResourceIdentifier: String) {
-        wildDefeatsData[defeatedPokemonResourceIdentifier] =
+        wildKos[defeatedPokemonResourceIdentifier] =
             getDefeats(defeatedPokemonResourceIdentifier) + 1
     }
 
     fun getDefeats(defeatedPokemonResourceIdentifier: String): Int {
-        return wildDefeatsData.getOrDefault(defeatedPokemonResourceIdentifier, 0)
+        return wildKos.getOrDefault(defeatedPokemonResourceIdentifier, 0)
     }
 
-    override fun deserialize(json: JsonObject): WildDefeatsData {
+    override fun deserialize(json: JsonObject): WildKos {
         val defeatsData = json.getAsJsonObject("defeats")
         for (pokemonResourceIdentifier in defeatsData.keySet()) {
-            wildDefeatsData[pokemonResourceIdentifier] = defeatsData.get(pokemonResourceIdentifier).asInt
+            wildKos[pokemonResourceIdentifier] = defeatsData.get(pokemonResourceIdentifier).asInt
         }
 
         return this
@@ -41,8 +41,8 @@ class WildDefeatsData : PlayerDataExtension {
         json.addProperty("name", name)
 
         val defeatsData = JsonObject()
-        for (pokemonResourceIdentifier in wildDefeatsData.keys) {
-            defeatsData.addProperty(pokemonResourceIdentifier, wildDefeatsData[pokemonResourceIdentifier])
+        for (pokemonResourceIdentifier in wildKos.keys) {
+            defeatsData.addProperty(pokemonResourceIdentifier, wildKos[pokemonResourceIdentifier])
         }
         json.add("defeats", defeatsData)
 
