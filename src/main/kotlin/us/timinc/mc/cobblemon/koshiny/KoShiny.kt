@@ -104,12 +104,7 @@ object KoShiny : ModInitializer {
 
         val maxPlayer = possibleMaxPlayer.get()
         val maxKoStreak = getPlayerKoStreak(maxPlayer, props.species!!)
-        val shinyChances = when {
-            maxKoStreak > 500 -> 4
-            maxKoStreak > 300 -> 3
-            maxKoStreak > 100 -> 2
-            else -> 1
-        }
+        val shinyChances = koShinyConfig.getThreshold(maxKoStreak) + 1
 
         val shinyRate: Int = config.shinyRate.toInt()
         val shinyRoll = nextInt(shinyRate)
