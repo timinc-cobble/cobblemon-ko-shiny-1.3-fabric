@@ -16,6 +16,9 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import com.mojang.brigadier.builder.LiteralArgumentBuilder.literal
 import com.mojang.brigadier.builder.RequiredArgumentBuilder.argument
 import com.mojang.brigadier.context.CommandContext
+import me.shedaniel.autoconfig.AutoConfig
+import me.shedaniel.autoconfig.annotation.Config
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.minecraft.commands.CommandSourceStack
@@ -26,13 +29,27 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
+import us.timinc.mc.cobblemon.koshiny.config.KoShinyConfig
 import us.timinc.mc.cobblemon.koshiny.store.WildKos
 import java.util.*
 import kotlin.random.Random.Default.nextInt
 
 object KoShiny : ModInitializer {
+    const val MOD_ID = "ko_shiny"
+    private lateinit var koShinyConfig: KoShinyConfig
 
     override fun onInitialize() {
+        AutoConfig.register(
+            KoShinyConfig::class.java
+        ) { definition: Config?, configClass: Class<KoShinyConfig?>? ->
+            JanksonConfigSerializer(
+                definition,
+                configClass
+            )
+        }
+        koShinyConfig = AutoConfig.getConfigHolder(KoShinyConfig::class.java)
+            .config
+
         PlayerDataExtensionRegistry.register(WildKos.name, WildKos::class.java)
 
         CobblemonEvents.BATTLE_VICTORY.subscribe { battleVictoryEvent ->
@@ -70,7 +87,12 @@ object KoShiny : ModInitializer {
                 .ignoreLineOfSight()
                 .ignoreInvisibilityTesting(),
             null,
-            AABB.ofSize(Vec3.atCenterOf(ctx.position), 64.0, 64.0, 64.0)
+            AABB.ofSize(
+                Vec3.atCenterOf(ctx.position),
+                koShinyConfig.effectiveRange.toDouble(),
+                koShinyConfig.effectiveRange.toDouble(),
+                koShinyConfig.effectiveRange.toDouble()
+            )
         ).stream().max(Comparator.comparingInt { player: Player? ->
             getPlayerKoStreak(
                 player!!, props.species!!
