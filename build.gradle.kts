@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "us.timinc.mc.cobblemon.koshiny"
-version = "1.0.2"
+version = "1.1.0"
 
 architectury {
     platformSetupLoomIde()
