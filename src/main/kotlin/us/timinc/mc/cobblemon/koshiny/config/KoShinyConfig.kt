@@ -1,12 +1,10 @@
 package us.timinc.mc.cobblemon.koshiny.config
 
-import me.shedaniel.autoconfig.ConfigData
-import me.shedaniel.autoconfig.annotation.Config
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment
+import draylar.omegaconfig.api.Comment
+import draylar.omegaconfig.api.Config
 import us.timinc.mc.cobblemon.koshiny.KoShiny
 
-@Config(name = KoShiny.MOD_ID)
-class KoShinyConfig : ConfigData {
+class KoShinyConfig : Config {
     @Comment("The distance at which a spawning Pokemon takes into consideration this player's KO count")
     val effectiveRange = 64
 
@@ -15,5 +13,9 @@ class KoShinyConfig : ConfigData {
 
     fun getThreshold(koCount: Int): Int {
         return thresholds.maxOfOrNull { entry -> if (entry.key < koCount) entry.value else 0 } ?: 0
+    }
+
+    override fun getName(): String {
+        return KoShiny.MOD_ID
     }
 }
